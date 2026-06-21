@@ -1,3 +1,5 @@
+import { scanners } from "./scanners.js"
+
 const input = document.getElementById("input")
 const versions = document.getElementById("versions")
 const versionText = document.getElementById("version-text")
@@ -13,7 +15,9 @@ function generateVersionButtons(){
             versionText.textContent = scanner.desc
         })
         button.addEventListener("click",function(){
-            output.innerHTML = scanner.scan(input.value)
+            let out;
+            try{out = scanner.scan(input.value)}catch(e){out = "Something went wrong!<br><br>"+e+"<br>"+e.stack}
+            output.innerHTML = out
         })
         button.textContent = name
         versions.appendChild(button)
